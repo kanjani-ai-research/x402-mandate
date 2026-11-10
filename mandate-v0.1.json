@@ -1,0 +1,511 @@
+{
+ "families": {
+  "phi_gap": [
+   {
+    "comment": "rule 8",
+    "id": "G1-mandate-speaks",
+    "pred": {
+     "exists": {
+      "body": {
+       "or": [
+        {
+         "eq": [
+          {
+           "field": "named"
+          },
+          true
+         ]
+        },
+        {
+         "in": [
+          {
+           "field": "category"
+          },
+          [
+           "data",
+           "compute",
+           "gambling",
+           "adult",
+           "crypto-asset"
+          ]
+         ]
+        }
+       ]
+      },
+      "over": "seller"
+     }
+    }
+   }
+  ],
+  "phi_minus": [
+   {
+    "comment": "at least one of rules 1 to 7 fails",
+    "id": "M1-outside",
+    "pred": {
+     "or": [
+      {
+       "not": {
+        "exists": {
+         "body": {
+          "and": [
+           {
+            "eq": [
+             {
+              "field": "network"
+             },
+             "eip155:8453"
+            ]
+           },
+           {
+            "eq": [
+             {
+              "field": "asset"
+             },
+             "USDC"
+            ]
+           }
+          ]
+         },
+         "over": "pay"
+        }
+       }
+      },
+      {
+       "not": {
+        "exists": {
+         "body": {
+          "ge": [
+           {
+            "threshold": "per_payment"
+           },
+           {
+            "field": "amount"
+           }
+          ]
+         },
+         "over": "pay"
+        }
+       }
+      },
+      {
+       "not": {
+        "exists": {
+         "body": {
+          "ge": [
+           {
+            "threshold": "cap"
+           },
+           {
+            "field": "after"
+           }
+          ]
+         },
+         "over": "pay"
+        }
+       }
+      },
+      {
+       "not": {
+        "exists": {
+         "body": {
+          "ge": [
+           {
+            "threshold": "not_after"
+           },
+           {
+            "field": "now"
+           }
+          ]
+         },
+         "over": "pay"
+        }
+       }
+      },
+      {
+       "not": {
+        "exists": {
+         "body": {
+          "not": {
+           "in": [
+            {
+             "field": "category"
+            },
+            [
+             "gambling",
+             "adult",
+             "crypto-asset"
+            ]
+           ]
+          }
+         },
+         "over": "seller"
+        }
+       }
+      },
+      {
+       "not": {
+        "exists": {
+         "body": {
+          "or": [
+           {
+            "eq": [
+             {
+              "field": "named"
+             },
+             true
+            ]
+           },
+           {
+            "and": [
+             {
+              "eq": [
+               {
+                "field": "verified"
+               },
+               true
+              ]
+             },
+             {
+              "ge": [
+               {
+                "field": "assurance"
+               },
+               {
+                "threshold": "min_assurance"
+               }
+              ]
+             },
+             {
+              "in": [
+               {
+                "field": "jurisdiction"
+               },
+               [
+                "US",
+                "EU",
+                "UK"
+               ]
+              ]
+             },
+             {
+              "in": [
+               {
+                "field": "category"
+               },
+               [
+                "data",
+                "compute"
+               ]
+              ]
+             }
+            ]
+           }
+          ]
+         },
+         "over": "seller"
+        }
+       }
+      },
+      {
+       "not": {
+        "or": [
+         {
+          "exists": {
+           "body": {
+            "eq": [
+             {
+              "field": "named"
+             },
+             true
+            ]
+           },
+           "over": "seller"
+          }
+         },
+         {
+          "exists": {
+           "body": {
+            "ge": [
+             {
+              "threshold": "open_ceiling"
+             },
+             {
+              "field": "amount"
+             }
+            ]
+           },
+           "over": "pay"
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ],
+  "phi_plus": [
+   {
+    "comment": "rule 1",
+    "id": "A1-asset",
+    "pred": {
+     "exists": {
+      "body": {
+       "and": [
+        {
+         "eq": [
+          {
+           "field": "network"
+          },
+          "eip155:8453"
+         ]
+        },
+        {
+         "eq": [
+          {
+           "field": "asset"
+          },
+          "USDC"
+         ]
+        }
+       ]
+      },
+      "over": "pay"
+     }
+    }
+   },
+   {
+    "comment": "rule 2",
+    "id": "A2-per-payment",
+    "pred": {
+     "exists": {
+      "body": {
+       "ge": [
+        {
+         "threshold": "per_payment"
+        },
+        {
+         "field": "amount"
+        }
+       ]
+      },
+      "over": "pay"
+     }
+    }
+   },
+   {
+    "comment": "rule 3",
+    "id": "A3-total",
+    "pred": {
+     "exists": {
+      "body": {
+       "ge": [
+        {
+         "threshold": "cap"
+        },
+        {
+         "field": "after"
+        }
+       ]
+      },
+      "over": "pay"
+     }
+    }
+   },
+   {
+    "comment": "rule 4",
+    "id": "A4-expiry",
+    "pred": {
+     "exists": {
+      "body": {
+       "ge": [
+        {
+         "threshold": "not_after"
+        },
+        {
+         "field": "now"
+        }
+       ]
+      },
+      "over": "pay"
+     }
+    }
+   },
+   {
+    "comment": "rule 5",
+    "id": "A5-not-prohibited",
+    "pred": {
+     "exists": {
+      "body": {
+       "not": {
+        "in": [
+         {
+          "field": "category"
+         },
+         [
+          "gambling",
+          "adult",
+          "crypto-asset"
+         ]
+        ]
+       }
+      },
+      "over": "seller"
+     }
+    }
+   },
+   {
+    "comment": "rules 6 and 7, who the seller is",
+    "id": "A6-seller",
+    "pred": {
+     "exists": {
+      "body": {
+       "or": [
+        {
+         "eq": [
+          {
+           "field": "named"
+          },
+          true
+         ]
+        },
+        {
+         "and": [
+          {
+           "eq": [
+            {
+             "field": "verified"
+            },
+            true
+           ]
+          },
+          {
+           "ge": [
+            {
+             "field": "assurance"
+            },
+            {
+             "threshold": "min_assurance"
+            }
+           ]
+          },
+          {
+           "in": [
+            {
+             "field": "jurisdiction"
+            },
+            [
+             "US",
+             "EU",
+             "UK"
+            ]
+           ]
+          },
+          {
+           "in": [
+            {
+             "field": "category"
+            },
+            [
+             "data",
+             "compute"
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      "over": "seller"
+     }
+    }
+   },
+   {
+    "comment": "rule 7, the 5 USDC ceiling",
+    "id": "A7-open-ceiling",
+    "pred": {
+     "or": [
+      {
+       "exists": {
+        "body": {
+         "eq": [
+          {
+           "field": "named"
+          },
+          true
+         ]
+        },
+        "over": "seller"
+       }
+      },
+      {
+       "exists": {
+        "body": {
+         "ge": [
+          {
+           "threshold": "open_ceiling"
+          },
+          {
+           "field": "amount"
+          }
+         ]
+        },
+        "over": "pay"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ },
+ "instantiates": "MANDATE.md",
+ "known_categories": [
+  "data",
+  "compute",
+  "gambling",
+  "adult",
+  "crypto-asset"
+ ],
+ "named_recipients": [
+  "0xNAMED01",
+  "0xNAMED02",
+  "0xNAMED03",
+  "0xNAMED04",
+  "0xNAMED05"
+ ],
+ "outcome_map": {
+  "REFER": "fact missing",
+  "authority-gap": "no rule stated",
+  "invalid": "outside authority",
+  "valid": "within authority"
+ },
+ "req": {
+  "pay": [
+   "network",
+   "asset",
+   "amount",
+   "after",
+   "now"
+  ],
+  "seller": [
+   "named",
+   "category"
+  ],
+  "seller_if_not_named": [
+   "verified"
+  ],
+  "seller_if_verified": [
+   "assurance",
+   "jurisdiction"
+  ]
+ },
+ "spec_id": "x402-mandate-example",
+ "spec_version": "0.1.0",
+ "thresholds": {
+  "cap": 8000000000,
+  "min_assurance": 2,
+  "not_after": 970000,
+  "open_ceiling": 5000000,
+  "per_payment": 50000000
+ }
+}

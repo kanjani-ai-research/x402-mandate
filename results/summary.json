@@ -1,0 +1,121 @@
+{
+ "experiment": "mandate-x402",
+ "kernel": {
+  "file": "verifier/kernel.py",
+  "hash": "sha256:33c35d28c968d87eff318b67084d590be6978e4ce9ac87d6f8ad7997479cd4db"
+ },
+ "spec": {
+  "id": "x402-mandate-example",
+  "version": "0.1.0",
+  "hash": "sha256:7640988906c0b84bb602b5ce7ea19ba003ebe3a754efcd2900ed813a738222ba",
+  "checks": {
+   "phi_gap": 1,
+   "phi_minus": 1,
+   "phi_plus": 7
+  }
+ },
+ "purchases": 2000,
+ "seed": 402,
+ "outcomes": {
+  "outside authority": 564,
+  "within authority": 945,
+  "fact missing": 284,
+  "no rule stated": 207
+ },
+ "agreement_with_prose_resolver": {
+  "agree": 2000,
+  "of": 2000
+ },
+ "outside_authority_failed_checks": {
+  "A7-open-ceiling": 82,
+  "A1-asset": 55,
+  "A6-seller": 455,
+  "A5-not-prohibited": 120,
+  "A2-per-payment": 4,
+  "A4-expiry": 47
+ },
+ "fact_missing_named": {
+  "seller.verified": 168,
+  "seller.jurisdiction": 75,
+  "seller.category": 51
+ },
+ "rederived": {
+  "ok": 2000,
+  "of": 2000
+ },
+ "edited_certificates": {
+  "outcome-stale-hash": {
+   "edited": 2000,
+   "rejected": 2000
+  },
+  "outcome-resealed": {
+   "edited": 2000,
+   "rejected": 2000
+  },
+  "fact-resealed": {
+   "edited": 2000,
+   "rejected": 2000
+  },
+  "check-resealed": {
+   "edited": 2000,
+   "rejected": 2000
+  },
+  "spec-hash-resealed": {
+   "edited": 2000,
+   "rejected": 2000
+  }
+ },
+ "forged_fact": {
+  "forged": 144,
+  "rejected_with_original_record": 144,
+  "rejected_with_forged_record": 0
+ },
+ "p06_shaped_mandate": {
+  "named-list": {
+   "accepted": 656,
+   "accepted_by_intent": {
+    "within authority": 641,
+    "fact missing": 15
+   },
+   "refused_by_intent": {
+    "outside authority": 564,
+    "fact missing": 269,
+    "within authority": 304,
+    "no rule stated": 207
+   }
+  },
+  "wildcard": {
+   "accepted": 1870,
+   "accepted_by_intent": {
+    "outside authority": 461,
+    "within authority": 945,
+    "fact missing": 266,
+    "no rule stated": 198
+   },
+   "refused_by_intent": {
+    "fact missing": 18,
+    "outside authority": 103,
+    "no rule stated": 9
+   }
+  }
+ },
+ "timing": {
+  "decide_lift_and_certify": {
+   "median_ms": 0.0316,
+   "max_ms": 0.0402,
+   "passes": 5
+  },
+  "rederive_with_record": {
+   "median_ms": 0.0323,
+   "max_ms": 0.0408,
+   "passes": 5
+  },
+  "python": "3.13.3",
+  "machine": "arm",
+  "note": "one core, per-item best of five passes; decide includes the lowering"
+ },
+ "certificate_bytes": {
+  "mean": 1011,
+  "mean_gzip": 535
+ }
+}
